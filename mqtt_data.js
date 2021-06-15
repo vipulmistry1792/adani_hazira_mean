@@ -57,7 +57,13 @@ function mqtt_messsageReceived(topic, message, packet) {
 		console.log(message_arr);
 	}
 };
-
+//insert a row into the tbl_messages table
+function insert_message(topic, message_str, packet) {
+	var message_arr = extract_string(message_str); //split a string into an array
+	var clientID= message_arr[0];
+	var message = message_arr[1];
+	console.logg(message);
+};
 function mqtt_close() {
 	//console.log("Close MQTT");
 };
