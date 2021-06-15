@@ -1,7 +1,7 @@
 const mongoose   = require('mongoose')
 const Schema     = mongoose.Schema;
 const schema = new Schema({
-    Data: mongoose.type.Object,
+    Data: Object,
     createdDate: { type: Date, default: Date.now }
 });
 schema.set('toJSON', {
