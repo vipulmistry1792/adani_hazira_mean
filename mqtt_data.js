@@ -1,6 +1,6 @@
 var mqtt = require('mqtt'); //https://www.npmjs.com/package/mqtt
 var Topic = '#'; //subscribe to all topics
-var Broker_URL = 'mqtt://15.206.126.14';
+var Broker_URL = 'mqtt:/localhost';
 const mqttService = require('./mqtt_data/mqtt_data.service');
 var options = {
 	clientId: 'MyMQTT',
@@ -63,6 +63,10 @@ function insert_message(topic, message_str, packet) {
 	var clientID= message_arr[0];
 	var message = message_arr[1];
 	console.logg(message);
+    mqttService.create({"Data":message})
+        .then(mqtt_data => mqtt_data ? console.log(user) : console.log({ message: 'Error Insert' }))
+        .catch(err => next(err));
+	
 };
 function mqtt_close() {
 	//console.log("Close MQTT");
