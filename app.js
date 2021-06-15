@@ -6,7 +6,7 @@ const bodyParser   = require('body-parser');
 const jwt          = require('./helpers/jwt')
 const errorHandler = require('./helpers/error-handler');
 const mqtt         = require('./mqtt_data');
-const mqtt1         = require('./mqtt_mysql');
+//const mqtt1         = require('./mqtt_mysql');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());

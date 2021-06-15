@@ -21,6 +21,7 @@
     "mongoose": "^5.12.13",
     "moongoose": "0.0.5",
     "mqtt": "^4.2.6",
+    "mysql": "^2.18.1",
     "rootpath": "^0.1.2"
   }
 }
