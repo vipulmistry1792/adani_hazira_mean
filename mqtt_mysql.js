@@ -75,7 +75,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
 	if (err) throw err;
-	//console.log("Database Connected!");
+	console.log("Database Connected!");
 });
 
 //insert a row into the tbl_messages table
