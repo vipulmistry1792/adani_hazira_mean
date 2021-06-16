@@ -1,9 +1,14 @@
+
 const mongoose   = require('mongoose')
 const Schema     = mongoose.Schema;
 const schema = new Schema({
-    Data: Object,
-    createdDate: { type: Date, default: Date.now }
-});
+    t_1 :String,
+    t_2 :String,
+    t_3 :String,
+    t_4 :String,
+},
+{timestamps:true},
+);
 schema.set('toJSON', {
     virtuals: true,
     versionKey: false,
