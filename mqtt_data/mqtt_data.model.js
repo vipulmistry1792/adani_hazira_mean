@@ -1,7 +1,7 @@
 
 const mongoose   = require('mongoose')
-//const Schema     = mongoose.Schema;
-const schema = new mongoose.Schema(
+const Schema     = mongoose.Schema;
+const schema     = new Schema(
        { 
         t_1    :   String,
         t_2    :   String,
