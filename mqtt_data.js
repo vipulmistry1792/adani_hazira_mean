@@ -13,7 +13,7 @@ var options = {
 //mqtt connection paranaeter
 
 var client  = mqtt.connect(Broker_URL, options);
-console.log(client);
+//console.log(client);
 client.on('connect', mqtt_connect);
 client.on('reconnect', mqtt_reconnect);
 client.on('error', mqtt_error);
@@ -66,7 +66,7 @@ function insert_message(topic, message_str, packet) {
 //	console.log(message);
         mqttService.create(message)
         .then(mqtt_data => mqtt_data ? console.log(user) : console.log({ message: 'Error Insert' }))
-        .catch(err => next(err));
+        .catch(err => console.log(err));
 	
 };
 function mqtt_close() {
