@@ -12,6 +12,20 @@ async function getMultiple(page = 1){
 
   return data;
 }
+async function getMultiple_last10(page = 1){
+  const offset = helper.getOffset(page, config.listPerPage);
+  const rows = await db.query(
+    'SELECT *  FROM adani_data  LIMIT ?,? order by id desc ', 
+    [offset, config.listPerPage]
+  );
+  const data = helper.emptyOrRows(rows);
+  const meta = {page};
+
+  return {
+    data,
+    meta
+  }
+}
 async function getRTUTags(prototype = "Modbus RTU"){
   const offset = helper.getOffset(1, config.listPerPage);
   const rows = await db.query(
@@ -107,5 +121,6 @@ async function create(tag){
     insert_data,
     insert_data_tags,
     DeleteTag,
+    getMultiple_last10,
     update
   }

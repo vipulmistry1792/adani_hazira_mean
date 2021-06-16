@@ -17,7 +17,8 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.use(jwt());
 // api routes
 app.use('/users', require('./users/user.controller'));
-
+// api routes
+app.use('/data', require('./mysql_mqtt/mysql_data.controller'));
 // global error handler
 app.use(errorHandler);
 
