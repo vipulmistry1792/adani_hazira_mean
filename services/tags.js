@@ -25,6 +25,7 @@ async function getRTUTags(prototype = "Modbus RTU"){
 }
 async function create(tag){
     //validateCreate(tag);
+    console.log(tag);
     const result = await db.query(
       'INSERT INTO adani_data (t_1, t_2,t_3,t_4,t_5,t_6,t_7,t_8,t_9,t_10) VALUES (?, ?,?,?,?,?,?,?,?,?)', 
       [tag.t_1, tag.t_2,tag.t_3,tag.t_4,tag.t_5,tag.t_6,tag.t_7,tag.t_8,tag.t_9,tag.t_10]
