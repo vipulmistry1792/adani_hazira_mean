@@ -58,7 +58,7 @@ function mqtt_messsageReceived(topic, message, packet) {
 	var responseJson = JSON.stringify(data.response);
 	console.log(data)
 	console.log(responseJson)
-	//insert_data([);
+	insert_data(data);
 	if (countInstances(message_str) != 1) {
 		//console.log("Invalid payload");
 		//insert_message(topic, message_str, packet);
