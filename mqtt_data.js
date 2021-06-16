@@ -52,8 +52,6 @@ function after_publish() {
 function mqtt_messsageReceived(topic, message, packet) {
 	var message_str = message.toString(); //convert byte array to string
 	message_str = message_str.replace(/\n$/, ''); //remove new line
-	//console.log(message_str);
-	//payload syntax: clientID,topic,message
 	var data = JSON.parse(message_str);
 	var responseJson = JSON.stringify(data.response);
 	//console.log(data)
