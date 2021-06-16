@@ -72,7 +72,7 @@ function insert_message(topic, message_str, packet) {
 	var message_arr = extract_string(message_str); //split a string into an array
 	var clientID= message_arr[0];
 	var message = message_arr[1];
-	var data = JSON.parse(message);
+	//var data = JSON.parse(message);
 	   // console.log(message_arr);
         mqttService.create(message_str)
         .then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))

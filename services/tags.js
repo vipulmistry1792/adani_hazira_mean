@@ -57,7 +57,7 @@ async function create(tag){
   }
   async function DeleteTag(id,tag){
     //validateCreate(tag);
-    console.log(tag);
+  //  console.log(tag);
     const result = await db.query(
       `delete from  adani_data where id=?`,[id]);
     let message = 'Error in Tag Deleteing';
