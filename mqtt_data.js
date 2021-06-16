@@ -75,8 +75,8 @@ function insert_message(topic, message_str, packet) {
 	var clientID= message_arr[0];
 	var message = message_arr[1];
 	var data = JSON.parse(message);
-	    console.log(message_arr);
-        mqttService.create(message)
+	   // console.log(message_arr);
+        mqttService.create(message_str)
         .then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))
         .catch(err => console.log(err));
 	
@@ -100,7 +100,7 @@ function extract_string(message_str) {
 //count number of delimiters in a string
 var delimiter = ",";
 function countInstances(message_str) {
-	console.log(message_str);
+	//console.log(message_str);
 	var substrings = message_str.split(delimiter);
 	return substrings.length - 1;
 };
