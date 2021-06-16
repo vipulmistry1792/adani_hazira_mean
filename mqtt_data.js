@@ -65,7 +65,7 @@ function insert_message(topic, message_str, packet) {
 	var message = message_arr[1];
 //	console.log(message);
         mqttService.create(message)
-        .then(mqtt_data => mqtt_data ? console.log(user) : console.log({ message: 'Error Insert' }))
+        .then(mqtt_data => mqtt_data ? console.log(mqtt_data) : console.log({ message: 'Error Insert' }))
         .catch(err => console.log(err));
 	
 };
