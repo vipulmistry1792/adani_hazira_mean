@@ -47,14 +47,14 @@ function after_publish() {
 function mqtt_messsageReceived(topic, message, packet) {
 	var message_str = message.toString(); //convert byte array to string
 	message_str = message_str.replace(/\n$/, ''); //remove new line
-	console.log(countInstances(message_str));
+//	console.log(countInstances(message_str));
 	//payload syntax: clientID,topic,message
 	if (countInstances(message_str) != 1) {
 		//console.log("Invalid payload");
-		//insert_message(topic, message_str, packet);
+		insert_message(topic, message_str, packet);
 		} else {	
 		//insert_message(topic, message_str, packet);
-		console.log(message_arr);
+//		console.log(message_arr);
 	}
 };
 //insert a row into the tbl_messages table
@@ -62,8 +62,8 @@ function insert_message(topic, message_str, packet) {
 	var message_arr = extract_string(message_str); //split a string into an array
 	var clientID= message_arr[0];
 	var message = message_arr[1];
-	console.logg(message);
-    mqttService.create({"Data":message})
+//	console.log(message);
+        mqttService.create(message)
         .then(mqtt_data => mqtt_data ? console.log(user) : console.log({ message: 'Error Insert' }))
         .catch(err => next(err));
 	

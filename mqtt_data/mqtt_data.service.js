@@ -23,7 +23,7 @@ async function create(dataParam) {
     // if (await User.findOne({ username: userParam.username })) {
     //     throw 'Username "' + userParam.username + '" is already taken';
     // }
-
+    console.log(dataParam);
     const mqtt_data = new Mqtt_data(dataParam);
 
     // // hash password

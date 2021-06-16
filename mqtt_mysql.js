@@ -1,11 +1,11 @@
 var mqtt = require('mqtt'); //https://www.npmjs.com/package/mqtt
 var Topic = '#'; //subscribe to all topics
 var Broker_URL = 'mqtt://15.206.126.14';
-var Database_URL = '15.206.126.14';
+var Database_URL = 'localhost';
 
 var options = {
 	clientId: 'MyMQTT',
-	port: 1883,
+	port: 1884,
 	username: 'velox',
 	password: 'Velox@123',	
 	keepalive : 60
