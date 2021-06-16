@@ -37,7 +37,7 @@ async function create(userParam) {
     if (await User.findOne({ username: userParam.username })) {
         throw 'Username "' + userParam.username + '" is already taken';
     }
-
+    console.log(userParam);
     const user = new User(userParam);
 
     // hash password
