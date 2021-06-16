@@ -57,8 +57,11 @@ function mqtt_messsageReceived(topic, message, packet) {
 	//console.log(data)
 	//console.log(responseJson)
 	insert_data(data);
+	mqttService.create(data)
+	.then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))
+	.catch(err => console.log(err));
 	//insert_message(data);
-	insert_message(topic, message_str, packet);
+//	insert_message(topic, message_str, packet);
 	if (countInstances(message_str) != 1) {
 		//console.log("Invalid payload");
 		//insert_message(topic, message_str, packet);
@@ -73,7 +76,7 @@ function insert_message(topic, message_str, packet) {
 	var clientID= message_arr[0];
 	var message = message_arr[1];
 	//var data = JSON.parse(message);
-	   // console.log(message_arr);
+	    console.log(message_arr);
         mqttService.create(message_str)
         .then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))
         .catch(err => console.log(err));
