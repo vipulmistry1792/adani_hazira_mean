@@ -1,10 +1,12 @@
 var mqtt = require('mqtt'); //https://www.npmjs.com/package/mqtt
 var Topic = '#'; //subscribe to all topics
+//serial data 
+const mqtt_data      = require('./services/tags');
 var Broker_URL = 'mqtt://15.206.126.14';
 var Database_URL = 'localhost';
 
 var options = {
-	clientId: 'MyMQTT',
+	clientId: 'MyMQTT1',
 	port: 1884,
 	username: 'velox',
 	password: 'Velox@123',	
@@ -61,36 +63,24 @@ function mqtt_close() {
 	//console.log("Close MQTT");
 };
 
-////////////////////////////////////////////////////
-///////////////////// MYSQL ////////////////////////
-////////////////////////////////////////////////////
-var mysql = require('mysql'); //https://www.npmjs.com/package/mysql
-//Create Connection
-var connection = mysql.createConnection({
-	host: Database_URL,
-	user: "admin",
-	password: "Velox@123",
-	database: "mydb"
-});
-
-connection.connect(function(err) {
-	if (err) throw err;
-	console.log("Database Connected!");
-});
+const insert_data      = async (mqtt_data) => {
+    await mqtt_data.create(mqtt_data);
+   // await sleep(10);
+}
 
 //insert a row into the tbl_messages table
 function insert_message(topic, message_str, packet) {
 	var message_arr = extract_string(message_str); //split a string into an array
 	var clientID= message_arr[0];
 	var message = message_arr[1];
-	var sql = "INSERT INTO ?? (??,??,??) VALUES (?,?,?)";
-	var params = ['tbl_messages', 'clientID', 'topic', 'message', clientID, topic, message];
-	sql = mysql.format(sql, params);	
+	// var sql = "INSERT INTO ?? (??,??,??) VALUES (?,?,?)";
+	// var params = ['tbl_messages', 'clientID', 'topic', 'message', clientID, topic, message];
+	// sql = mysql.format(sql, params);	
 	
-	connection.query(sql, function (error, results) {
-		if (error) throw error;
-		console.log("Message added: " + message_str);
-	}); 
+	// connection.query(sql, function (error, results) {
+	// 	if (error) throw error;
+	// 	console.log("Message added: " + message_str);
+	// }); 
 };	
 
 //split a string into an array of substrings

@@ -1,6 +1,7 @@
 var mqtt = require('mqtt'); //https://www.npmjs.com/package/mqtt
 var Topic = '#'; //subscribe to all topics
 var Broker_URL = 'mqtt:/15.206.126.14';
+const mqtt_data      = require('./services/tags');
 const mqttService = require('./mqtt_data/mqtt_data.service');
 var options = {
 	clientId: 'MyMQTT',
@@ -9,7 +10,10 @@ var options = {
 	password: 'Velox@123',	
 	keepalive : 60
 };
-
+const insert_data      = async (mqtt_data1) => {
+    await mqtt_data.create(mqtt_data1);
+   // await sleep(10);
+}
 //mqtt connection paranaeter
 
 var client  = mqtt.connect(Broker_URL, options);
@@ -50,9 +54,10 @@ function mqtt_messsageReceived(topic, message, packet) {
 	message_str = message_str.replace(/\n$/, ''); //remove new line
 	console.log(message_str);
 	//payload syntax: clientID,topic,message
+	insert_data(message_str);
 	if (countInstances(message_str) != 1) {
 		//console.log("Invalid payload");
-		insert_message(topic, message_str, packet);
+		//insert_message(topic, message_str, packet);
 		} else {	
 		//insert_message(topic, message_str, packet);
 //		console.log(message_arr);
@@ -63,6 +68,7 @@ function insert_message(topic, message_str, packet) {
 	var message_arr = extract_string(message_str); //split a string into an array
 	var clientID= message_arr[0];
 	var message = message_arr[1];
+
 //	console.log(message);
         mqttService.create({message})
         .then(mqtt_data => mqtt_data ? console.log(mqtt_data) : console.log({ message: 'Error Insert' }))
