@@ -54,7 +54,11 @@ function mqtt_messsageReceived(topic, message, packet) {
 	message_str = message_str.replace(/\n$/, ''); //remove new line
 	//console.log(message_str);
 	//payload syntax: clientID,topic,message
-	insert_data([message_str]);
+	var data = JSON.parse(message_str);
+	var responseJson = JSON.stringify(data.response);
+	console.log(data)
+	console.log(responseJson)
+	//insert_data([);
 	if (countInstances(message_str) != 1) {
 		//console.log("Invalid payload");
 		//insert_message(topic, message_str, packet);
