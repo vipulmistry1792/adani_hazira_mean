@@ -6,5 +6,6 @@ mongoose.Promise = global.Promise;
 
 module.exports = {
     User: require('../users/user.model'),
-    Mqtt_data: require('../mqtt_data/mqtt_data.model')
+    Mqtt_data: require('../mqtt_data/mqtt_data.model'),
+    Alarm_data: require('../mongo_alarm/alarm_data.model')
 };

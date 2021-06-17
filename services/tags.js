@@ -72,12 +72,10 @@ async function create(tag){
   async function insert_data(query){
     //validateCreate(tag);
     const result = await db.query(query);
-  
     let message = 'Error in creating Tag';
-  
     if (result.affectedRows) {
       message = 'Tag created successfully';
-      datafiled(tag);
+      //datafiled(tag);
     }
   
     return {message};
