@@ -5,9 +5,9 @@ const mqtt_data      = require('./services/tags');
 const mqttService = require('./mqtt_data/mqtt_data.service');
 var options = {
 	clientId: 'MyMQTT',
-	port: 1883,
-	//username: 'velox',
-//	password: 'Velox@123',	
+	port: 1884,
+	username: 'velox',
+	password: 'Velox@123',	
 	keepalive : 60
 };
 const insert_data      = async (mqtt_data1) => {
