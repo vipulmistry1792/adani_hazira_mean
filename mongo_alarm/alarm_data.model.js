@@ -32,4 +32,4 @@ schema.set('toJSON', {
         delete ret.hash;
     }
 });
-module.exports = mongoose.model('Mqtt_data', schema);
+module.exports = mongoose.model('Alarm_data', schema);

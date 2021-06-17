@@ -3,6 +3,7 @@ var Topic = '#'; //subscribe to all topics
 var Broker_URL = 'mqtt:/localhost';
 const mqtt_data      = require('./services/tags');
 const mqttService = require('./mqtt_data/mqtt_data.service');
+const alarmService = require('./mongo_alarm/alarm_data.service');
 const alaram = require('./services/alarm');
 var options = {
 	clientId: 'MyMQTT',
@@ -12,11 +13,22 @@ var options = {
 	keepalive : 60
 };
 const insert_data      = async (mqtt_data1) => {
-    await mqtt_data.create(mqtt_data1);
+   //await mqtt_data.create(mqtt_data1);
    // await sleep(10);
 }
 const insert_dataalaram      = async (mqtt_data1) => {
     await alaram.create(mqtt_data1);
+   // await sleep(10);
+}
+const insert_data1      = async (mqtt_data1) => {
+	data_d=await mqtt_data.getMultiple_last10();
+	data_d=data_d.data;
+	//console.log(data_d[0].length)
+	for (let index = 0; index < data_d[0]; index++) {
+		const element = data_d[index];
+		//console.log(element)
+	}
+    //await mqtt_data.create(mqtt_data1);
    // await sleep(10);
 }
 //mqtt connection paranaeter
@@ -58,13 +70,23 @@ function mqtt_messsageReceived(topic, message, packet) {
 	var message_str = message.toString(); //convert byte array to string
 	message_str = message_str.replace(/\n$/, ''); //remove new line
 	var data = JSON.parse(message_str);
+	data['created']=Date.now();
+	
 	var responseJson = JSON.stringify(data.response);
+	Object.keys(data).map(
+		function(object){
+			data[object]['created']=Date.now();
+		}
+	);
 	//console.log(data)
 	//console.log(responseJson)
 	if(topic=="alarm")
 	{
-		console.log(message);
+		//console.log(message);
 		insert_dataalaram(data);
+		alarmService.create(data)
+		.then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))
+		.catch(err => console.log(err));
 	}
 	else
 	{
