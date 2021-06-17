@@ -3,6 +3,7 @@ var Topic = '#'; //subscribe to all topics
 var Broker_URL = 'mqtt:/localhost';
 const mqtt_data      = require('./services/tags');
 const mqttService = require('./mqtt_data/mqtt_data.service');
+const alaram = require('./services/alarm');
 var options = {
 	clientId: 'MyMQTT',
 	port: 1884,
@@ -12,6 +13,10 @@ var options = {
 };
 const insert_data      = async (mqtt_data1) => {
     await mqtt_data.create(mqtt_data1);
+   // await sleep(10);
+}
+const insert_dataalaram      = async (mqtt_data1) => {
+    await alaram.create(mqtt_data1);
    // await sleep(10);
 }
 //mqtt connection paranaeter
@@ -59,6 +64,7 @@ function mqtt_messsageReceived(topic, message, packet) {
 	if(topic=="alarm")
 	{
 		console.log(message);
+		insert_dataalaram(data);
 	}
 	else
 	{
