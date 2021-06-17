@@ -7,7 +7,12 @@ async function query(sql, params) {
 
   return rows;
 }
+async function query1(sql) {
+  const rows = await pool.execute(sql);
 
+  return rows;
+}
 module.exports = {
-  query
+  query,
+  query1
 }

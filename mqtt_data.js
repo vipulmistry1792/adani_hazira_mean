@@ -1,13 +1,13 @@
 var mqtt = require('mqtt'); //https://www.npmjs.com/package/mqtt
 var Topic = '#'; //subscribe to all topics
-var Broker_URL = 'mqtt:/15.206.126.14';
+var Broker_URL = 'mqtt:/localhost';
 const mqtt_data      = require('./services/tags');
 const mqttService = require('./mqtt_data/mqtt_data.service');
 var options = {
 	clientId: 'MyMQTT',
-	port: 1884,
-	username: 'velox',
-	password: 'Velox@123',	
+	port: 1883,
+	//username: 'velox',
+//	password: 'Velox@123',	
 	keepalive : 60
 };
 const insert_data      = async (mqtt_data1) => {
@@ -56,10 +56,18 @@ function mqtt_messsageReceived(topic, message, packet) {
 	var responseJson = JSON.stringify(data.response);
 	//console.log(data)
 	//console.log(responseJson)
-	insert_data(data);
-	mqttService.create(data)
-	.then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))
-	.catch(err => console.log(err));
+	if(topic=="alarm")
+	{
+		console.log(message);
+	}
+	else
+	{
+		insert_data(data);
+		mqttService.create(data)
+		.then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))
+		.catch(err => console.log(err));
+	}
+
 	//insert_message(data);
 //	insert_message(topic, message_str, packet);
 	if (countInstances(message_str) != 1) {
