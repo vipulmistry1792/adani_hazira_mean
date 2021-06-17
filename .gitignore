@@ -6,7 +6,8 @@
 # Node artifact files
 node_modules/
 dist/
-
+client_adani/node_modules/
+client_adani/dist/
 # Compiled Java class files
 *.class
 
