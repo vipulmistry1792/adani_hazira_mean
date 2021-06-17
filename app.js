@@ -17,8 +17,12 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.use(jwt());
 // api routes
 app.use('/users', require('./users/user.controller'));
-// api routes
+// api routes mysql data
 app.use('/data', require('./mysql_mqtt/mysql_data.controller'));
+// api routes mongodb data
+app.use('/mdata', require('./mqtt_data/mqtt_data.controller'));
+// api routes mysql data
+app.use('/alarm', require('./alarm_data_mysql/alarm_data.controller'));
 // global error handler
 app.use(errorHandler);
 
