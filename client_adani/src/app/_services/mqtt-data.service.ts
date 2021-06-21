@@ -28,4 +28,10 @@ export class MqttDataService {
 getAllmngo() {
 return this.http.get<any>(`${environment.apiUrl}/mdata/current`);
 }
+mngogetAll() {
+  return this.http.get<any>(`${environment.apiUrl}/mdata`);
+  }
+  mngodatewise(fromDate, toDate) {
+   return this.http.post<any>(`${environment.apiUrl}/mdata/filter`, { fromDate, toDate });
+    }
 }

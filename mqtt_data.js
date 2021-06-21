@@ -70,19 +70,10 @@ function mqtt_messsageReceived(topic, message, packet) {
 	var message_str = message.toString(); //convert byte array to string
 	message_str = message_str.replace(/\n$/, ''); //remove new line
 	var data = JSON.parse(message_str);
-	data['created']=Date.now();
-	
+	data['created']=new Date();
 	var responseJson = JSON.stringify(data.response);
-	Object.keys(data).map(
-		function(object){
-			data[object]['created']=Date.now();
-		}
-	);
-	//console.log(data)
-	//console.log(responseJson)
 	if(topic=="alarm")
 	{
-		//console.log(message);
 		insert_dataalaram(data);
 		alarmService.create(data)
 		.then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))

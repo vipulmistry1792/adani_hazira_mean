@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import Chart from 'chart.js';
 import { first } from 'rxjs/operators';
 import { MqttDataService } from '../../_services';
 import { AlarmService } from '../../_services';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-
+import { QueryBuilderConfig } from 'angular2-query-builder';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 // core components
 import {
   chartOptions,
@@ -22,7 +23,8 @@ import { IndexService } from 'src/app/_services/index.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  subscription: Subscription 
+  modalRef                     : BsModalRef;
+  subscription                 : Subscription 
   public datasets              : any;
   public lastdata              : any;
   public alarm_data            : any;
@@ -36,13 +38,45 @@ export class DashboardComponent implements OnInit {
   public clicked               : boolean = true;
   public clicked1              : boolean = false;
   public items;
-
+  public chartoption           :{};
+// Colors
+public colors = {
+  gray: {
+    100: '#f6f9fc',
+    200: '#e9ecef',
+    300: '#dee2e6',
+    400: '#ced4da',
+    500: '#adb5bd',
+    600: '#8898aa',
+    700: '#525f7f',
+    800: '#32325d',
+    900: '#212529'
+  },
+  theme: {
+    'default': '#172b4d',
+    'primary': '#5e72e4',
+    'secondary': '#f4f5f7',
+    'info': '#11cdef',
+    'success': '#2dce89',
+    'danger': '#f5365c',
+    'warning': '#fb6340'
+  },
+  black: '#12263F',
+  white: '#FFFFFF',
+  transparent: 'transparent',
+};
   constructor(
    // private route: ActivatedRoute,
     private http         : HttpClient,
     private MqttData     : MqttDataService,
     private AlarmService : AlarmService,
+    private modalService: BsModalService
   ) { }
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+    //this.chartOptions_cmp1                  = {};
+   // this.chartOptions_cmp2                  = {};
+ }
   ngOnInit() {
     this.items = this.MqttData.getAll();
     this.httpRequest();
@@ -71,13 +105,38 @@ export class DashboardComponent implements OnInit {
     //   options: chartExample2.options,
     //   data: chartExample2.data
     // });
-    // var chartSales = document.getElementById('chart-sales');
-    // this.salesChart = new Chart(chartSales, {
-		// 	type: 'line',
-		// 	options: chartExample1.options,
-		// 	data: chartExample1.data
-		// });
-
+    var chartSales = document.getElementById('chart-sales');
+    this.salesChart = new Chart(chartSales, {
+			type: 'line',
+			options: chartExample1.options,
+			data: chartExample1.data
+		});
+    this.chartoption = {
+      options: {
+        scales: {
+          yAxes: [{
+            gridLines: {
+              color: this.colors.gray[900],
+              zeroLineColor: this.colors.gray[900]
+            },
+            ticks: {
+              callback: function(value) {
+                if (!(value % 10)) {
+                  return '$' + value + 'k';
+                }
+              }
+            }
+          }]
+        }
+      },
+      data: {
+        labels: ['Apr','May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+          label: 'Performance',
+          data: [50,0, 20, 10, 30, 15, 40, 20, 60, 60]
+        }]
+      }
+    }
   }
   httpRequest() {
     this.MqttData.getAll()
