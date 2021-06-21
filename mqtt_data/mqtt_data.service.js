@@ -7,7 +7,8 @@ const Mqtt_data = db.Mqtt_data;
 module.exports = {
     getAll,
     getAll_new,
-    create
+    create,
+    filter
 };
 
 async function getAll() {
@@ -20,22 +21,14 @@ async function getById(id) {
     return await Mqtt_data.findById(id);
 }
 async function create(dataParam) {
-    // // validate
-    // if (await User.findOne({ username: userParam.username })) {
-    //     throw 'Username "' + userParam.username + '" is already taken';
-    // }
-   // console.log(dataParam);
     const mqtt_data = new Mqtt_data(dataParam);
-
-    // // hash password
-    // if (userParam.password) {
-    //     user.hash = bcrypt.hashSync(userParam.password, 10);
-    // }
-
-    // save user
     await mqtt_data.save();
 }
-
+async function filter(tag){
+   
+    
+    return await db.Mqtt_data.find({ created: { $gte: new Date(tag.fromDate),$lte: new Date(tag.toDate) } })
+  }
 
 async function _delete(id) {
     await Mqtt_data.findByIdAndRemove(id);
