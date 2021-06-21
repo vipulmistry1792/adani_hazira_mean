@@ -1,0 +1,87 @@
+<ng-template #template class="row col-lg-12 col-md-12 pupUp-image-modal">
+  <div class="modal-header">
+      <h4 class="modal-title pull-left custom-main-regular-hedding">History</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+         <span aria-hidden="true">×</span>
+      </button>
+   </div>
+   <div class="modal-body row col-lg-12 col-md-12 custom-defult-font vertical-divider form-inline">
+      <div class="form-group mx-sm-4 mb-2">
+        <label for="exampleFormControlFile1">Realtime : </label>
+        <input type="text"
+        ngxDaterangepickerMd
+        [(ngModel)]="selected"
+        [showCustomRangeLabel]="true"
+        [alwaysShowCalendars]="true"
+        [ranges]="ranges"
+        [linkedCalendars]="true"
+        [isInvalidDate] = "isInvalidDate"
+        [showClearButton]="false"
+        [timePicker]="true"
+        placeholder="Select please..."/>
+      </div> 
+      <div class="form-group mx-sm-4 mb-2">
+        <label for="exampleFormControlFile1">Parameter : </label>
+        <select class="form-control" [(ngModel)]="prm" id="prm" [(ngModel)]="prm" name="prm" >
+          <option  *ngFor="let item of lastdata1 | keyvalue; let i = index" value="{{item.key}}" >{{item.key}}</option>
+        </select>
+      </div>
+      <div class="form-group mx-sm-4 mb-2">
+        <label for="exampleFormControlFile1">TimeZone</label>
+        <select class="form-control" [(ngModel)]="tzone" id="tzone" [(ngModel)]="tzone" name="tzone" >
+         <option value="UTC">UTC</option>
+         <option value="UTC +5:30">UTC + 5:30</option>
+        </select>
+      </div>
+      <div class="col-lg-3 col-md-3 float-right">
+        <button type="submit" class="btn btn-success" (click)="show()">Search</button>
+    </div>   
+   </div>
+   <div class="modal-footer" >
+      <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+   </div>
+</ng-template>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body" >
+        <!-- Card stats -->
+          <div class="row" >
+            <button class="btn btn-sm btn-primary" (click)="openModal(template)"><i class="fas fa-clock"> </i> Realtime</button>
+           </div>
+ 
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--7">
+    <div class="row mt-5" >
+      <div class="col-xl-12 mb-5 mb-xl-0">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">Status Detail</h3>
+              </div>
+              <div class="col text-right">
+                <a href="#!" class="btn btn-sm btn-primary">See all</a>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr >
+                  <th  *ngFor="let item of mqtt_lastdata | keyvalue; let i = index">{{ item.key }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of alarm_datasummary1">           
+                  <td *ngFor="let list of item | keyvalue; let i = index">{{list.key==='created' || list.key==='id' ? list.value:list.value==='1.0'?'Run':'Stop'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

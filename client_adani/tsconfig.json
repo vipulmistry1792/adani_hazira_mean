@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "../../static",
+    "outDir": "../static",
     "sourceMap": true,
     "declaration": false,
     "module": "es2015",
