@@ -11,7 +11,9 @@ function jwt() {
             // public routes that don't require authentication
             
             '/',
-            '/alarm',
+            '/data/filter',
+            '/mdata',
+            '/mdata/filter',
             '/alarm/status',
             '/users/authenticate',
             '/users/register'

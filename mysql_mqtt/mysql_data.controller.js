@@ -15,7 +15,16 @@ router.get('/', async function(req, res, next) {
 /* POST quotes */
 router.post('/', async function(req, res, next) {
   try {
-    res.json(await quotes.create(req.body));
+    res.json(await datas.create(req.body));
+  } catch (err) {
+    console.error(`Error while posting quotes `, err.message);
+    next(err);
+  }
+});
+/* POST quotes */
+router.post('/filter', async function(req, res, next) {
+  try {
+    res.json(await datas.filter(req.body));
   } catch (err) {
     console.error(`Error while posting quotes `, err.message);
     next(err);

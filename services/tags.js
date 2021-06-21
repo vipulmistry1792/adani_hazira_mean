@@ -110,6 +110,15 @@ async function create(tag){
   
     return {message,type};
   }
+  async function filter(tag){
+    //validateCreate(tag);
+    const result = await db.query(
+      'SELECT *  FROM adani_data where created between ? and ? ', 
+      [tag.fromDate, tag.toDate]
+    );
+  const data = helper.emptyOrRows(result);
+  return data;
+  }
   async function getalarm(page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
@@ -133,5 +142,6 @@ async function create(tag){
     DeleteTag,
     getMultiple_last10,
     update,
+    filter,
     getalarm
   }

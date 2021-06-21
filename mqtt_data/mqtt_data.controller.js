@@ -5,7 +5,7 @@ const mqttdataService = require('./mqtt_data.service');
 // routes
 router.get('/', getAll);
 router.get('/current', getCurrent);
-
+router.post('/filter', getFilter);
 module.exports = router;
 function getAll(req, res, next) {
     mqttdataService.getAll()
@@ -14,6 +14,11 @@ function getAll(req, res, next) {
 }
 function getCurrent(req, res, next) {
     mqttdataService.getAll_new()
+        .then(mqttdata => mqttdata ? res.json(mqttdata) : res.sendStatus(404))
+        .catch(err => next(err));
+}
+function getFilter(req, res, next) {
+    mqttdataService.filter(req.body)
         .then(mqttdata => mqttdata ? res.json(mqttdata) : res.sendStatus(404))
         .catch(err => next(err));
 }
