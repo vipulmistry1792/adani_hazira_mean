@@ -74,14 +74,14 @@ function mqtt_messsageReceived(topic, message, packet) {
 	var responseJson = JSON.stringify(data.response);
 	if(topic=="alarm")
 	{
-		insert_dataalaram(data);
+	//	insert_dataalaram(data);
 		alarmService.create(data)
 		.then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))
 		.catch(err => console.log(err));
 	}
 	else
 	{
-		insert_data(data);
+	//	insert_data(data);
 		mqttService.create(data)
 		.then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))
 		.catch(err => console.log(err));
