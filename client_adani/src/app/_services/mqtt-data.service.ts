@@ -18,7 +18,6 @@ export class MqttDataService {
     this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
     this.user = this.userSubject.asObservable();
   }
-  
   public get userValue(): User {
     return this.userSubject.value;
 }
@@ -28,10 +27,7 @@ export class MqttDataService {
 getAllmngo() {
 return this.http.get<any>(`${environment.apiUrl}/mdata/current`);
 }
-mngogetAll() {
-  return this.http.get<any>(`${environment.apiUrl}/mdata`);
-  }
-  mngodatewise(fromDate, toDate) {
-   return this.http.post<any>(`${environment.apiUrl}/mdata/filter`, { fromDate, toDate });
-    }
+mngodatewise(fromDate, toDate) {
+  return this.http.post<any>(`${environment.apiUrl}/mdata/filter`, { fromDate, toDate });
+   }
 }
