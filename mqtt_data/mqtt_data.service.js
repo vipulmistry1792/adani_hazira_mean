@@ -3,14 +3,12 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../helpers/db');
 const Mqtt_data = db.Mqtt_data;
-
 module.exports = {
     getAll,
     getAll_new,
     create,
     filter
 };
-
 async function getAll() {
     return await Mqtt_data.find();
 }
@@ -25,11 +23,8 @@ async function create(dataParam) {
     await mqtt_data.save();
 }
 async function filter(tag){
-   
-    
     return await db.Mqtt_data.find({ created: { $gte: new Date(tag.fromDate),$lte: new Date(tag.toDate) } })
   }
-
 async function _delete(id) {
     await Mqtt_data.findByIdAndRemove(id);
 }

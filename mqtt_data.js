@@ -1,6 +1,6 @@
 var mqtt = require('mqtt'); //https://www.npmjs.com/package/mqtt
 var Topic = '#'; //subscribe to all topics
-var Broker_URL = 'mqtt:/localhost';
+var Broker_URL = 'mqtt:/15.206.126.14';
 const mqtt_data      = require('./services/tags');
 const mqttService = require('./mqtt_data/mqtt_data.service');
 const alarmService = require('./mongo_alarm/alarm_data.service');
