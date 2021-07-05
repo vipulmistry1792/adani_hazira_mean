@@ -18,6 +18,7 @@ function getCurrent(req, res, next) {
         .catch(err => next(err));
 }
 function getFilter(req, res, next) {
+   // console.log(req.body)
     mqttdataService.filter(req.body)
         .then(mqttdata => mqttdata ? res.json(mqttdata) : res.sendStatus(404))
         .catch(err => next(err));

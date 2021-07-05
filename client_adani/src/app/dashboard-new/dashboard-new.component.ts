@@ -32,10 +32,10 @@ export class DashboardNewComponent implements OnInit {
   }
 showData()
 {
-  let start_date                   = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd HH:mm:ss');
-  let end_date                     = this.datepipe.transform(this.dateValue1, 'yyyy-MM-dd HH:mm:ss');
+  let fromDate                   = this.dateValue.toISOString();
+  let toDate                     = this.dateValue1.toISOString();
   //console.log()
-  this.machine_data=this.MqttData.mngodatewise(start_date,end_date);
+  this.machine_data=this.MqttData.mngodatewise(fromDate,toDate);
   console.log(this.machine_data);
 }
 }

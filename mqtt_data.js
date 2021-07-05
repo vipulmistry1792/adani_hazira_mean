@@ -1,10 +1,13 @@
 var mqtt = require('mqtt'); //https://www.npmjs.com/package/mqtt
 var Topic = '#'; //subscribe to all topics
-var Broker_URL = 'mqtt:/15.206.126.14';
+var Broker_URL = 'mqtt:/localhost';
 const mqtt_data      = require('./services/tags');
 const mqttService = require('./mqtt_data/mqtt_data.service');
 const alarmService = require('./mongo_alarm/alarm_data.service');
 const alaram = require('./services/alarm');
+const client_msg = require('twilio')('AC342e0594ff7b816e110f1ef4ae258ee7', '3cb28f3ac4eb8a7e9d961d4d1a70a011');
+
+var nodemailer = require('nodemailer');
 var options = {
 	clientId: 'MyMQTT',
 	port: 1884,
@@ -12,6 +15,7 @@ var options = {
 	password: 'Velox@123',	
 	keepalive : 60
 };
+
 const insert_data      = async (mqtt_data1) => {
    //await mqtt_data.create(mqtt_data1);
    // await sleep(10);
@@ -81,20 +85,37 @@ function mqtt_messsageReceived(topic, message, packet) {
 	}
 	else
 	{
+		//send_message();
+	//	console.log(data)
+	if(data.t_50=='1.0')
+	{
+		//send_message();
+	//	send_Email();
+	}
+		mqttService.getAll_new()
+		.then(mydata=>{
+			let my_s=mydata[1].toObject();
+		//	console.log(my_s,data.t_50)
+			if(my_s.t_50==data.t_50)
+			{
+				console.log("False")
+			}
+			else
+			{
+				if(data.t_50=='1.0')
+				{
+					console.log("True")
+					send_message();
+					send_Email();
+					alert_call();					
+				}
+			}
+		})
+		.catch(err => console.log(err));
 		insert_data(data);
 		mqttService.create(data)
 		.then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))
 		.catch(err => console.log(err));
-	}
-
-	//insert_message(data);
-//	insert_message(topic, message_str, packet);
-	if (countInstances(message_str) != 1) {
-		//console.log("Invalid payload");
-		//insert_message(topic, message_str, packet);
-		} else {	
-		//insert_message(topic, message_str, packet);
-//		console.log(message_arr);
 	}
 };
 //insert a row into the tbl_messages table
@@ -102,20 +123,30 @@ function insert_message(topic, message_str, packet) {
 	var message_arr = extract_string(message_str); //split a string into an array
 	var clientID= message_arr[0];
 	var message = message_arr[1];
-	//var data = JSON.parse(message);
-	    console.log(message_arr);
+	mqttService.getAll_new()
+	.then(mqtt_data=>{
+		console.log(mqtt_data)
+		if(mqtt_data.t50=message_arr[1].t50)
+		{
+
+		}
+		else
+		{
+			if(message_arr[1].t50=="1")
+			{
+				console.log("true");
+				send_message();
+				send_Email();
+				alert_call();
+			}
+		}
+	})
+	.catch(err => console.log(err));
         mqttService.create(message_str)
         .then(mqtt_data => mqtt_data ? console.log("success") : console.log({ message: 'Error Insert' }))
         .catch(err => console.log(err));
 	
 };
-// function insert_message(data) {
-// //	console.log(message);
-//         mqttService.create(data)
-//         .then(mqtt_data => mqtt_data ? console.log(mqtt_data) : console.log({ message: 'Error Insert' }))
-//         .catch(err => console.log(err));
-	
-// };
 function mqtt_close() {
 	//console.log("Close MQTT");
 };
@@ -124,7 +155,6 @@ function extract_string(message_str) {
 	var message_arr = message_str.split(","); //convert to array	
 	return message_arr;
 };	
-
 //count number of delimiters in a string
 var delimiter = ",";
 function countInstances(message_str) {
@@ -132,3 +162,50 @@ function countInstances(message_str) {
 	var substrings = message_str.split(delimiter);
 	return substrings.length - 1;
 };
+function send_message()
+{
+ client_msg.messages
+  .create({
+     body: 'Twin is Down',
+     from: '+15204576457',
+	 to:'+919714328098'
+    // to: '+919099005008'
+   })
+  .then(message => console.log(message.sid));
+}
+var transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+	  user: 'veloxiot20@gmail.com',
+	  pass: 'Velox%123'
+	}
+  });
+  var mailOptions = {
+	from: 'veloxiot20@gmail.com',
+	to: 'vipulmistry92@gmail.com',
+//	to: 'ashish.mehta@adani.com',
+//	cc: 'vipulmistry92@gmail.com',
+	subject: 'Crane Monitoring System',
+	text: 'Twin is Down!'
+  };
+function send_Email()
+{
+	transporter.sendMail(mailOptions, function(error, info){
+		if (error) {
+		  console.log(error);
+		} else {
+		  console.log('Email sent: ' + info.response);
+		}
+	  });
+}
+function alert_call()
+{
+    client_msg.calls
+    .create({
+       method: 'GET',
+       url: 'http://demo.twilio.com/docs/voice.xml',
+       to: '+919714328098',
+       from: '+15204576457'
+     })
+    .then(call => console.log(call.sid));
+}
