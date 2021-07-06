@@ -22,6 +22,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SprederDashboardComponent } from './spreder-dashboard/spreder-dashboard.component';
 import { DashboardNewComponent } from './dashboard-new/dashboard-new.component'; 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker'; 
+import { DataTablesModule } from 'angular-datatables';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -33,6 +34,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angul
     AppRoutingModule,
     OwlDateTimeModule, 
     OwlNativeDateTimeModule,
+    DataTablesModule
   ],
   declarations: [
     AppComponent,

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../_models';
+import { NgForm } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,8 @@ export class MqttDataService {
 getAllmngo() {
 return this.http.get<any>(`${environment.apiUrl}/mdata/current`);
 }
-mngodatewise(fromDate, toDate) {
-  return this.http.post<any>(`${environment.apiUrl}/mdata/filter`, { fromDate, toDate });
+mngodatewise(fromDate,toDate) {
+   
+  return this.http.post<any>(`${environment.apiUrl}/mdata`, {"fromDate":fromDate,"toDate":toDate});
    }
 }
