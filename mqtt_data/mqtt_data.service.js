@@ -23,7 +23,7 @@ async function create(dataParam) {
     await mqtt_data.save();
 }
 async function filter(tag){
-    console.log(tag)
+    //console.log(tag)
     return await db.Mqtt_data.find({ created: { $gte: new Date(tag.fromDate),$lte: new Date(tag.toDate) } })
   }
 async function _delete(id) {

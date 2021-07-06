@@ -5,8 +5,9 @@ const mqtt_data      = require('./services/tags');
 const mqttService = require('./mqtt_data/mqtt_data.service');
 const alarmService = require('./mongo_alarm/alarm_data.service');
 const alaram = require('./services/alarm');
-const client_msg = require('twilio')('AC342e0594ff7b816e110f1ef4ae258ee7', '3cb28f3ac4eb8a7e9d961d4d1a70a011');
-
+const authid = process.env.Twilo_SID;
+const auth_token= process.env.Twilo_Token;
+const client_msg = require('twilio')('aaa', 'aaa');
 var nodemailer = require('nodemailer');
 var options = {
 	clientId: 'MyMQTT',
@@ -90,7 +91,7 @@ function mqtt_messsageReceived(topic, message, packet) {
 	if(data.t_50=='1.0')
 	{
 		//send_message();
-	//	send_Email();
+	   //send_Email();
 	}
 		mqttService.getAll_new()
 		.then(mydata=>{
@@ -125,7 +126,7 @@ function insert_message(topic, message_str, packet) {
 	var message = message_arr[1];
 	mqttService.getAll_new()
 	.then(mqtt_data=>{
-		console.log(mqtt_data)
+	//	console.log(mqtt_data)
 		if(mqtt_data.t50=message_arr[1].t50)
 		{
 
@@ -207,5 +208,5 @@ function alert_call()
        to: '+919714328098',
        from: '+15204576457'
      })
-    .then(call => console.log(call.sid));
+    .then(call => console.log(call));
 }
