@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RangefilterComponent } from './rangefilter.component';
+import { SprederDashboardComponent } from './spreder-dashboard.component';
 
-describe('RangefilterComponent', () => {
-  let component: RangefilterComponent;
-  let fixture: ComponentFixture<RangefilterComponent>;
+describe('SprederDashboardComponent', () => {
+  let component: SprederDashboardComponent;
+  let fixture: ComponentFixture<SprederDashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RangefilterComponent ]
+      declarations: [ SprederDashboardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RangefilterComponent);
+    fixture = TestBed.createComponent(SprederDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

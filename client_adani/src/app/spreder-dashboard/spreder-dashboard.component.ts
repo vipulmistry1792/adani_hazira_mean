@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, ViewChild, ElementRef, OnInit  } from '@angular/core';
 import Chart from 'chart.js';
 import { first } from 'rxjs/operators';
 import { MqttDataService } from '../_services';
@@ -15,34 +15,35 @@ import {
 } from "../variables/charts";
 import { Subscription } from 'rxjs';
 import { IndexService } from 'src/app/_services/index.service';
-
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-spreder-dashboard',
+  templateUrl: './spreder-dashboard.component.html',
+  styleUrls: ['./spreder-dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class SprederDashboardComponent implements OnInit {
   subscription: Subscription 
   public datasets              : any;
   public lastdata              : any;
   public alarm_data            : any;
   public id;
   public count;
-  public field                 =['proxy-1']
-  public alarm_datasummary            : [];
+  public field                 = ['proxy-1']
+  public alarm_datasummary     : [];
   public mqtt_lastdata         : any;
   public data                  : any;
   public salesChart;
   public clicked               : boolean = true;
   public clicked1              : boolean = false;
   public items;
+  public sp_mode               = "Normal"
+  public modebool              : Boolean = false;
   constructor(
     private http         : HttpClient,
     private MqttData     : MqttDataService,
     private AlarmService : AlarmService,
 
   ) { }
-
+  fillColor = 'rgb(255, 255, 0)';
   ngOnInit(): void {
     this.items = this.MqttData.getAll();
     this.httpRequest();
@@ -54,14 +55,11 @@ export class DashboardComponent implements OnInit {
        this.httpRequest_mongo();
       this.httpRequest_alaram();
       this.httpRequest_alarmsummary();
-     
-      
+      //console.log(this.mqtt_lastdata.t_2)
     }, 1000);
-    this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
-    this.data = this.datasets[0];
+
+    
+
   }
   httpRequest() {
     this.MqttData.getAll()
@@ -98,10 +96,22 @@ export class DashboardComponent implements OnInit {
         .pipe(first())
         .subscribe(() =>  this.httpRequest_alaram());
 }
+change_mode()
+{
+  console.log(this.sp_mode)
+  if(this.sp_mode == "Normal")
+  {
+    this.sp_mode="Twin"
+    this.modebool=true;
+  }
+  else{
+    this.sp_mode="Normal"
+    this.modebool=false;
+  }
+}
   ngOnDestroy() {
     if (this.id) {
       clearInterval(this.id);
     }
   }
-
 }

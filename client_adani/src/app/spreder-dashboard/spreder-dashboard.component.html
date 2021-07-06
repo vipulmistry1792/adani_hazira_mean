@@ -1,0 +1,113 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body" *ngIf="mqtt_lastdata">
+        <!-- Card stats -->
+        <div class="row">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--7">
+    <div class="row mt-5">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-10 mb-xl-0">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">Spreder Schemetic</h3>
+              </div>
+              <div class="col text-right">
+                  <button class="btn btn-sm btn-primary" (click)="change_mode()"> {{sp_mode}}</button> 
+              </div>
+            </div>
+          </div>
+        <div class="card-body">
+            <svg  width="130%" height="130%" viewBox="0 0 800.000000 600.000000"
+            preserveAspectRatio="xMidYMid meet" *ngIf="mqtt_lastdata">
+                <g>
+                 
+                  <!-- <line x1="0" y1="0" x2="650" y2="0" style="stroke:rgb(0,0,0);stroke-width:2" /> -->
+                  <!--Left Start left Sea Side-->
+                  <rect x="15" y="0" width="100" height="70" style="fill:rgb(255, 255, 0);stroke:black;stroke-width:2;stroke-opacity:0.9" />
+                  <circle cx="40" cy="15" r="10" stroke="black" stroke-width="1" [ngClass]="{'green': mqtt_lastdata.t_2 == '1.0','white': mqtt_lastdata.t_2 == '0.0'}" />
+                  <circle cx="40" cy="45" r="10" stroke="black" stroke-width="1" [ngClass]="{'red': mqtt_lastdata.t_6 == '1.0','white': mqtt_lastdata.t_6 == '0.0'}" />
+                  <circle cx="70" cy="45" r="10" stroke="black" stroke-width="1" [ngClass]="{'white': mqtt_lastdata.t_10 == '1.0','trans': mqtt_lastdata.t_10 == '0.0'}" />
+                  <!--Left End left Sea Side-->
+                  <!--Twin Start Sea Side-->
+                  <rect x="200" y="0" width="100" height="70" style="fill:rgb(255, 255, 0);stroke:black;stroke-width:2;stroke-opacity:0.9" *ngIf="modebool"/>
+                  <circle cx="230" cy="15" r="10" stroke="black" stroke-width="1" [ngClass]="{'white': mqtt_lastdata.t_26 == '1.0','trans': mqtt_lastdata.t_26 == '0.0'}" *ngIf="modebool" />
+                  <circle cx="230" cy="45" r="10" stroke="black" stroke-width="1" [ngClass]="{'green': mqtt_lastdata.t_18 == '1.0','white': mqtt_lastdata.t_18 == '0.0'}" *ngIf="modebool" />
+                  <circle cx="260" cy="45" r="10" stroke="black" stroke-width="1" [ngClass]="{'red': mqtt_lastdata.t_22 == '1.0','white': mqtt_lastdata.t_22 == '0.0'}" *ngIf="modebool" />
+                  <rect x="315" y="0" width="100" height="70" style="fill:rgb(255, 255, 0);stroke:black;stroke-width:2;stroke-opacity:0.9" *ngIf="modebool" />
+                  <circle cx="340" cy="45" r="10" stroke="black" stroke-width="1" [ngClass]="{'red': mqtt_lastdata.t_27 == '1.0','white': mqtt_lastdata.t_27 == '0.0'}" *ngIf="modebool" />
+                  <circle cx="370" cy="15" r="10" stroke="black" stroke-width="1" [ngClass]="{'white': mqtt_lastdata.t_23 == '1.0','trans': mqtt_lastdata.t_23 == '0.0'}" *ngIf="modebool" />
+                  <circle cx="370" cy="45" r="10" stroke="black" stroke-width="1" [ngClass]="{'green': mqtt_lastdata.t_19 == '1.0','white': mqtt_lastdata.t_19 == '0.0'}" *ngIf="modebool" />
+                  <!--Twin End Sea Side-->
+                  <rect x="15" y="70" width="100" height="300" style="fill:rgb(255, 255, 0);stroke:black;stroke-width:1;stroke-opacity:0.9"  />
+                  <rect x="115" y="70" width="450" height="150" style="fill:white;stroke:black;stroke-width:1;stroke-opacity:0.9"  />
+                  <text x="250" y="130" fill="black">Water Side</text>
+                  <!-- Twin up Water side Start-->
+                  <circle cx="230" cy="100" r="10" stroke="black" stroke-width="1" [ngClass]="{'blue': mqtt_lastdata.t_30 == '1.0','white': mqtt_lastdata.t_30 == '0.0'}" />
+                  <circle cx="340" cy="100" r="10" stroke="black" stroke-width="1" [ngClass]="{'blue': mqtt_lastdata.t_31 == '1.0','white': mqtt_lastdata.t_31 == '0.0'}" />
+                  <!-- Twin up Water side End -->
+                  <!-- Hook Connected Water Side Start-->
+                  <circle cx="190" cy="160" r="10" stroke="black" stroke-width="1" [ngClass]="{'black': mqtt_lastdata.t_33 == '1.0','white': mqtt_lastdata.t_33 == '0.0'}" />
+                   <!-- Hook Connected Water Side End -->
+                  <rect x="115" y="180" width="450" height="100" style="fill:rgb(255, 255, 0);stroke:black;stroke-width:1;stroke-opacity:0.9"  />
+                  <rect x="115" y="250" width="450" height="120" style="fill:white;stroke:black;stroke-width:1;stroke-opacity:0.9"  />
+                  <text x="250" y="320" fill="black">Lane Side</text>
+                 <!-- Twin up lane side Start-->
+                 <circle cx="230" cy="350" r="10" stroke="black" stroke-width="1" [ngClass]="{'blue': mqtt_lastdata.t_29 == '1.0','white': mqtt_lastdata.t_29 == '0.0'}" />
+                 <circle cx="340" cy="350" r="10" stroke="black" stroke-width="1" [ngClass]="{'blue': mqtt_lastdata.t_32 == '1.0','white': mqtt_lastdata.t_32 == '0.0'}" />
+                  <!-- Twin up lane  side End-->
+                  <!-- Hook Connected lane Side Start-->
+                  <circle cx="340" cy="270" r="10" stroke="black" stroke-width="1" [ngClass]="{'black': mqtt_lastdata.t_34 == '1.0','white': mqtt_lastdata.t_34 == '0.0'}" />
+                  <!-- Hook Connected lane Side End -->
+                  <!--Left Start left lane Side-->
+                  <rect x="15" y="370" width="100" height="70" style="fill:rgb(252, 255, 0);stroke:black;stroke-width:2;stroke-opacity:0.9"  />
+                  <circle cx="40" cy="385" r="10" stroke="black" stroke-width="1" [ngClass]="{'red': mqtt_lastdata.t_5 == '1.0','white': mqtt_lastdata.t_5 == '0.0'}" />
+                  <circle cx="40" cy="415" r="10" stroke="black" stroke-width="1" [ngClass]="{'green': mqtt_lastdata.t_1 == '1.0','white': mqtt_lastdata.t_1 == '0.0'}" />
+                  <circle cx="70" cy="385" r="10" stroke="black" stroke-width="1" [ngClass]="{'white': mqtt_lastdata.t_9 == '1.0','trans': mqtt_lastdata.t_9 == '0.0'}" />
+                  <!--Left End left lane Side-->
+                  <!--Twin Start  Lane Side-->
+                  <rect x="200" y="370" width="100" height="70" style="fill:rgb(255, 255, 0);stroke:black;stroke-width:2;stroke-opacity:0.9" *ngIf="modebool"/>
+                  <circle cx="230" cy="385" r="10" stroke="black" stroke-width="1" [ngClass]="{'green': mqtt_lastdata.t_17 == '1.0','white': mqtt_lastdata.t_17 == '0.0'}" *ngIf="modebool" />
+                  <circle cx="230" cy="415" r="10" stroke="black" stroke-width="1" [ngClass]="{'white': mqtt_lastdata.t_25 == '1.0','trans': mqtt_lastdata.t_25 == '0.0'}" *ngIf="modebool" />
+                  <circle cx="260" cy="385" r="10" stroke="black" stroke-width="1" [ngClass]="{'red': mqtt_lastdata.t_21 == '1.0','white': mqtt_lastdata.t_21 == '0.0'}" *ngIf="modebool" />
+                  <rect x="315" y="370" width="100" height="70" style="fill:rgb(255, 255, 0);stroke:black;stroke-width:2;stroke-opacity:0.9" *ngIf="modebool" />
+                  <circle cx="340" cy="385" r="10" stroke="black" stroke-width="1" [ngClass]="{'red': mqtt_lastdata.t_24 == '1.0','white': mqtt_lastdata.t_24 == '0.0'}" *ngIf="modebool" />
+                  <circle cx="370" cy="385" r="10" stroke="black" stroke-width="1" [ngClass]="{'green': mqtt_lastdata.t_20 == '1.0','white': mqtt_lastdata.t_20 == '0.0'}" *ngIf="modebool" />
+                  <circle cx="370" cy="415" r="10" stroke="black" stroke-width="1" [ngClass]="{'white': mqtt_lastdata.t_28 == '1.0','trans': mqtt_lastdata.t_28 == '0.0'}" *ngIf="modebool" />
+                  <!--Twin End lane Side-->
+
+
+                  
+                  <!-- Right Start Water Side -->
+                  <rect x="500" y="0" width="100" height="70" style="fill:rgb(255, 255, 0);stroke:black;stroke-width:2;stroke-opacity:0.9" />
+                  <circle cx="555" cy="15" r="10" stroke="black" stroke-width="1" [ngClass]="{'green': mqtt_lastdata.t_3 == '1.0','white': mqtt_lastdata.t_3 == '0.0'}" />
+                  <circle cx="525" cy="45" r="10" stroke="black" stroke-width="1" [ngClass]="{'white': mqtt_lastdata.t_7 == '1.0','trans': mqtt_lastdata.t_7 == '0.0'}" />
+                  <circle cx="555" cy="45" r="10" stroke="black" stroke-width="1" [ngClass]="{'red': mqtt_lastdata.t_7 == '1.0','white': mqtt_lastdata.t_7 == '0.0'}" />
+               <!-- Right End  Water Side -->
+                  <rect x="500" y="70" width="100" height="300" style="fill:rgb(255, 255, 0);stroke:black;stroke-width:1;stroke-opacity:0.9"  />
+                  <!--Left Start right lane Side-->
+                  <rect x="500" y="370" width="100" height="70" style="fill:rgb(252, 255, 0);stroke:black;stroke-width:2;stroke-opacity:0.9"  />
+                  <circle cx="525" cy="385" r="10" stroke="black" stroke-width="1" [ngClass]="{'white': mqtt_lastdata.t_12 == '1.0','trans': mqtt_lastdata.t_12 == '0.0'}" />
+                  <circle cx="555" cy="415" r="10" stroke="black" stroke-width="1" [ngClass]="{'red': mqtt_lastdata.t_8 == '1.0','white': mqtt_lastdata.t_8 == '0.0'}" />
+                  <circle cx="555" cy="385" r="10" stroke="black" stroke-width="1"[ngClass]="{'green': mqtt_lastdata.t_4 == '1.0','white': mqtt_lastdata.t_4 == '0.0'}" />
+                   <!--Left End right lane Side-->
+
+                   <circle cx="250" cy="500" r="20" stroke="black" stroke-width="1" [ngClass]="{'green': mqtt_lastdata.t_43 == '1.0','white': mqtt_lastdata.t_43 == '0.0'}" />
+                   <circle cx="300" cy="500" r="20" stroke="black" stroke-width="1" [ngClass]="{'red': mqtt_lastdata.t_44 == '1.0','white': mqtt_lastdata.t_44 == '0.0'}" />
+                   <circle cx="350" cy="500" r="20" stroke="black" stroke-width="1"[ngClass]="{'blue': mqtt_lastdata.t_50 == '1.0','white': mqtt_lastdata.t_50 == '0.0'}" />
+
+                </g>
+              </svg>             
+        </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  

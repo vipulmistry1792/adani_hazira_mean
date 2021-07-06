@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 <Response>
 <Say voice="alice">Twin is Down!</Say>
 <Play>http://demo.twilio.com/docs/classic.mp3</Play>
+=======
+<Response>
+<Say voice="alice">Twin is Down!</Say>
+<Play>http://demo.twilio.com/docs/classic.mp3</Play>
+>>>>>>> 26d6c9995f25ef4443d9b56ba2b0549b7674522c
 </Response>

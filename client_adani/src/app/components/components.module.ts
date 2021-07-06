@@ -5,7 +5,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RangefilterComponent } from './rangefilter/rangefilter.component';
 
 @NgModule({
   imports: [
@@ -16,14 +15,12 @@ import { RangefilterComponent } from './rangefilter/rangefilter.component';
   declarations: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent,
-    RangefilterComponent
+    SidebarComponent
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent,
-    RangefilterComponent
+    SidebarComponent
   ]
 })
 export class ComponentsModule { }
